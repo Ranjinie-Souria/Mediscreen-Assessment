@@ -1,6 +1,8 @@
 package com.mediscreen.model;
 
+
 public class Assessment {
+	
 	private Integer patientId;
 	private int patientAge;
 	private String result;
@@ -10,12 +12,14 @@ public class Assessment {
 		this.patientAge = patientAge;
 		this.result = result;
 	}
-	public Assessment(int patientAge, String result) {
-		this.patientAge = patientAge;
-		this.result = result;
+	
+	public Assessment(Integer patientId) {
+		this.patientId = patientId;		
 	}
+	
 	public Assessment() {
 	}
+	
 	public Integer getPatientId() {
 		return patientId;
 	}

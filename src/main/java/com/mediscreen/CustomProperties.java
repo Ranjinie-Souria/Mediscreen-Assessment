@@ -1,5 +1,7 @@
 package com.mediscreen;
 
+
+
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

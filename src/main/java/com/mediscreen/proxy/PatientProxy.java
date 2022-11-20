@@ -1,7 +1,10 @@
 package com.mediscreen.proxy;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -31,6 +34,22 @@ public class PatientProxy {
 			);
 		
 		log.debug("Get Patient : " + response.getStatusCode().toString());
+		
+		return response.getBody();
+	}
+
+	public List<Patient> findByFamilyName(String familyName) {
+		String getPatientUrl = "http://localhost:8084/patients/familyName/" + familyName;
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<List<Patient>> response = restTemplate.exchange(
+				getPatientUrl,
+				HttpMethod.GET, 
+				null,
+				new ParameterizedTypeReference<List<Patient>>() {}
+			);
+		
+		log.debug("Get Patients call " + response.getStatusCode().toString());
 		
 		return response.getBody();
 	}

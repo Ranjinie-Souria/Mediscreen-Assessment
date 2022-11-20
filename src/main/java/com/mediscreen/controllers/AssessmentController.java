@@ -1,5 +1,8 @@
 package com.mediscreen.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +35,26 @@ public class AssessmentController {
 				" (age "+assessment.getPatientAge()+
 				") diabetes assessment is: "+assessment.getResult();
 		return stringToReturn;
+    }
+	
+	/**
+	 * Show Assessment by patient family name
+	 * @return assessment results
+	 */
+	@GetMapping("/assess/familyName/{familyName}")
+    public List<String> getAssessmentByFamilyName(@PathVariable String familyName)
+    {
+		List<Patient> patients = patientService.getPatientsByFamilyName(familyName);
+		List<String> stringsToReturn = new ArrayList<String>();
+		for(Patient p : patients) {
+			Assessment assessment = aService.getAssessmentForPatientId(p.getPatientId());
+			String stringToReturn = "Patient: "+p.getFirstName()+" "+p.getFamilyName()+
+					" (age "+assessment.getPatientAge()+
+					") diabetes assessment is: "+assessment.getResult();
+			stringsToReturn.add(stringToReturn);
+		}
+		
+		return stringsToReturn;
     }
 	
 }

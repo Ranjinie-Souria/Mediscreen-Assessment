@@ -1,5 +1,7 @@
 package com.mediscreen.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mediscreen.model.Patient;
@@ -16,7 +18,9 @@ public class PatientService {
 		return proxy.getPatient(id);
 	}
 
-	
+	public List<Patient> getPatientsByFamilyName(String familyName) {
+		return proxy.findByFamilyName(familyName);
+	}
 	
 	
 

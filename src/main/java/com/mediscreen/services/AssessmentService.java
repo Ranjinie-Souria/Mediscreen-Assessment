@@ -23,7 +23,7 @@ public class AssessmentService {
 	
 	public static List<String> triggers() {
 		List<String> noteTriggers = new ArrayList<String>();
-		noteTriggers.add("Hémoglobine A1C");
+		noteTriggers.add("A1C");
 		noteTriggers.add("Microalbumine");
 		noteTriggers.add("Taille");
 		noteTriggers.add("Poids");
@@ -66,12 +66,16 @@ public class AssessmentService {
 		for(Note note : notes) {
 			
 			String content = note.getContent();
-			String[] words = content.split("\\W+");
+			String[] words = content.split("\\s+");
+			for (int i = 0; i < words.length; i++) {
+			    words[i] = words[i].replaceAll("[^\\w]", "");
+			}
 			
 			for(String trigger : AssessmentService.triggers()) {
+				
 				for(String word : words) {
-					if(word == trigger) {
-						triggerCount += 1;
+					if(word.equalsIgnoreCase(trigger)) {
+						triggerCount = triggerCount + 1;
 					}
 				}
 			}
@@ -79,7 +83,7 @@ public class AssessmentService {
 		}
 		
 		if(triggerCount == 0) {
-			return result;
+			return "None";
 		}
 		else {
 			if(age > 30 ) {
@@ -115,7 +119,7 @@ public class AssessmentService {
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 
 }

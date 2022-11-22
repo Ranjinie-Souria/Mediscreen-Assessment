@@ -27,14 +27,12 @@ public class AssessmentController {
 	 * @return assessment results
 	 */
 	@GetMapping("/assess/{id}")
-    public String getAssessment(@PathVariable int id)
+    public Assessment getAssessment(@PathVariable int id)
     {
 		Patient p = patientService.getPatient(id);
 		Assessment assessment = aService.getAssessmentForPatientId(p.getPatientId());
-		String stringToReturn = "Patient: "+p.getFirstName()+" "+p.getFamilyName()+
-				" (age "+assessment.getPatientAge()+
-				") diabetes assessment is: "+assessment.getResult();
-		return stringToReturn;
+		
+		return assessment;
     }
 	
 	/**
